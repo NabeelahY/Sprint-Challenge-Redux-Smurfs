@@ -1,12 +1,12 @@
-import React, { createRef } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { addSmurf } from "../actions";
 
 const SmurfForm = props => {
   console.log(props);
-  const nameRef = React.createRef();
-  const ageRef = React.createRef();
-  const heightRef = React.createRef();
+  const nameRef = React.createRef()
+  const ageRef = React.createRef()
+  const heightRef = React.createRef()
 
   const addNewSmurf = e => {
     e.preventDefault();
