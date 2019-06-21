@@ -1,5 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
 import { deleteSmurfs } from "../actions";
 
 const Smurf = props => {
@@ -7,10 +10,14 @@ const Smurf = props => {
     props.deleteSmurfs(id);
   };
   return (
-    <div>
-      <h3>{props.smurf.name}</h3>
-      <span onClick={() => deleteSmurf(props.smurf.id)}>x</span>
-    </div>
+    <StyledSmurf>
+      <span>{props.smurf.name}</span>
+      <FontAwesomeIcon
+        onClick={() => deleteSmurf(props.smurf.id)}
+        icon={faTrash}
+        color= '#B10F2E'
+      />
+    </StyledSmurf>
   );
 };
 
@@ -18,3 +25,17 @@ export default connect(
   null,
   { deleteSmurfs }
 )(Smurf);
+
+const StyledSmurf = styled.div`
+  background-color: #96CDFF;
+  padding: 2rem;
+  margin: 1rem 0;
+  border: 1px #ccc solid;
+  display: flex;
+  color: #fff;
+  justify-content: space-between;
+
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+`;

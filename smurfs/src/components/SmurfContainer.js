@@ -16,6 +16,6 @@ export default SmurfContainer;
 
 const StyledContainer = styled.div`
   margin: 0 auto;
-  width: 800px;
+  width: 40%;
   text-align: center;
 `;
