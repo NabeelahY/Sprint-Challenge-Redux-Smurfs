@@ -27,12 +27,11 @@ export default connect(
 )(Smurf);
 
 const StyledSmurf = styled.div`
-  background-color: #96CDFF;
+  background-color: #b3d4f36e;
   padding: 2rem;
   margin: 1rem 0;
-  border: 1px #ccc solid;
   display: flex;
-  color: #fff;
+  color: #333;
   justify-content: space-between;
 
   &:hover {
