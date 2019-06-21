@@ -20,7 +20,7 @@ const Smurf = props => {
         />
       </StyledSpan>
       <div>
-        <div>Age: {props.smurf.age}</div>
+        <div>Age: {props.smurf.age} years</div>
         <div>Height: {props.smurf.height}</div>
       </div>
     </StyledSmurf>
