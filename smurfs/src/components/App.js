@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getSmurfs } from "../actions";
 import SmurfContainer from "../components/SmurfContainer";
+import SmurfForm from "./SmurfForm";
 
 class App extends Component {
   // useEffect(props.getSmurfs, [])
@@ -13,6 +14,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <SmurfForm />
         {this.props.smurfs && <SmurfContainer smurfs={this.props.smurfs} />}
       </div>
     );
