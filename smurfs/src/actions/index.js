@@ -41,3 +41,10 @@ export const getSmurfs = () => dispatch => {
       });
     });
 };
+
+export const addSmurf = (name, age, height) => dispatch => {
+  axios
+    .post("http://localhost:3333/smurfs", { name, age, height })
+    .then(res => dispatch(getSmurfs()))
+    .catch(err => console.log(err));
+};
