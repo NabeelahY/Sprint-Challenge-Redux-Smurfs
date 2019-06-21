@@ -23,7 +23,7 @@ export const SMURFS_FAILURE = "SMURFS_FAILURE";
 export const getSmurfs = () => dispatch => {
   dispatch({ type: SMURFS_LOAD });
   axios
-    .get("https://localhost:3333/smurfs")
+    .get("http://localhost:3333/smurfs")
     .then(res => {
       console.log(res);
       dispatch({
@@ -37,7 +37,7 @@ export const getSmurfs = () => dispatch => {
       console.log(err);
       dispatch({
         type: SMURFS_FAILURE,
-        payload: `ERROR STATUS : ${err.response.status}`
+        payload: `ERROR STATUS : ${err}`
       });
     });
 };
