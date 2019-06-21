@@ -14,7 +14,7 @@ const SmurfForm = props => {
     const age = ageRef.current.value;
     const height = heightRef.current.value;
 
-    props.addSmurf(name, age, height).then(() => props.history.push("/"));
+    props.addSmurf(name, age, height);
   };
 
   return (
