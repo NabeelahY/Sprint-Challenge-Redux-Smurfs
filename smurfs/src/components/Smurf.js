@@ -11,12 +11,18 @@ const Smurf = props => {
   };
   return (
     <StyledSmurf>
-      <span>{props.smurf.name}</span>
-      <FontAwesomeIcon
-        onClick={() => deleteSmurf(props.smurf.id)}
-        icon={faTrash}
-        color= '#B10F2E'
-      />
+      <StyledSpan>
+        <span>{props.smurf.name}</span>
+        <FontAwesomeIcon
+          onClick={() => deleteSmurf(props.smurf.id)}
+          icon={faTrash}
+          color="#B10F2E"
+        />
+      </StyledSpan>
+      <div>
+        <div>Age: {props.smurf.age}</div>
+        <div>Height: {props.smurf.height}</div>
+      </div>
     </StyledSmurf>
   );
 };
@@ -31,10 +37,22 @@ const StyledSmurf = styled.div`
   padding: 2rem;
   margin: 1rem 0;
   display: flex;
+  flex-direction: column;
   color: #333;
-  justify-content: space-between;
+  text-align: left;
 
   &:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
+
+  div {
+    margin: 0.5rem 0;
+  }
+`;
+
+const StyledSpan = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5rem;
 `;
