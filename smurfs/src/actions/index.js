@@ -48,3 +48,10 @@ export const addSmurf = (name, age, height) => dispatch => {
     .then(res => dispatch(getSmurfs()))
     .catch(err => console.log(err));
 };
+
+export const deleteSmurfs = id => dispatch => {
+  axios
+    .delete(`http://localhost:3333/smurfs/${id}`)
+    .then(res => dispatch(getSmurfs()))
+    .catch(err => console.log(err));
+};
