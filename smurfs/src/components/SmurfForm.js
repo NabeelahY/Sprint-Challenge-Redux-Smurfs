@@ -1,28 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { addSmurf } from "../actions";
 
 const SmurfForm = props => {
+  const [smurfData, setSmurf] = useState({
+    name: "",
+    age: "",
+    height: ""
+  });
+
   console.log(props);
-  const nameRef = React.createRef();
-  const ageRef = React.createRef();
-  const heightRef = React.createRef();
 
   const addNewSmurf = e => {
     e.preventDefault();
-    const name = nameRef.current.value;
-    const age = ageRef.current.value;
-    const height = heightRef.current.value;
+    setSmurf({
+      name: smurfData.name,
+      age: smurfData.age,
+      height: smurfData.height
+    });
 
-    props.addSmurf(name, age, height);
+    console.log(smurfData);
+    props.addSmurf(smurfData);
   };
 
   return (
     <StyledForm onSubmit={addNewSmurf}>
-      <input type="text" placeholder="Enter name" ref={nameRef} />
-      <input type="number" placeholder="Enter age" ref={ageRef} />
-      <input type="text" placeholder="Enter height" ref={heightRef} />
+      <input
+        type="text"
+        placeholder="Enter name"
+        value={smurfData.name}
+        onChange={e => setSmurf({ ...smurfData, name: e.target.value })}
+      />
+      <input
+        type="number"
+        placeholder="Enter age"
+        value={smurfData.age}
+        onChange={e => setSmurf({ ...smurfData, age: e.target.value })}
+      />
+      <input
+        type="text"
+        placeholder="Enter height"
+        value={smurfData.height}
+        onChange={e => setSmurf({ ...smurfData, height: e.target.value })}
+      />
       <button type="submit">Add Smurf</button>
     </StyledForm>
   );
@@ -40,7 +61,7 @@ const StyledForm = styled.form`
   height: auto;
   border-radius: 10px;
   * {
-      box-sizing: border-box;
+    box-sizing: border-box;
   }
 
   input {
@@ -54,7 +75,7 @@ const StyledForm = styled.form`
   }
 
   button {
-    display:block;
+    display: block;
     text-align: center;
     font-size: 1rem;
     margin: auto 0;
@@ -63,6 +84,6 @@ const StyledForm = styled.form`
     padding: 15px;
     border: none;
     border-radius: 20px;
-    background-color: #96CDFF;
+    background-color: #96cdff;
   }
 `;
