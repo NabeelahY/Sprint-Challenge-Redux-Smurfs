@@ -28,9 +28,7 @@ export const getSmurfs = () => dispatch => {
       console.log(res);
       dispatch({
         type: SMURFS_SUCCESS,
-        payload: {
-          data: res.data
-        }
+        payload: res.data
       });
     })
     .catch(err => {
@@ -47,6 +45,24 @@ export const addSmurf = smurf => dispatch => {
   axios
     .post("http://localhost:3333/smurfs", { name, age, height })
     .then(res => dispatch(getSmurfs()))
+    .catch(err => console.log(err));
+};
+
+export const SMURFS_EDIT_LOAD = "SMURFS_EDIT_LOAD";
+export const SMURFS_EDIT = "SMURFS_EDIT";
+
+export const editSmurf = (id, smurf) => dispatch => {
+  const { name, age, height } = smurf;
+  dispatch({ type: SMURFS_EDIT_LOAD })
+  axios
+    .put(`http://localhost:3333/smurfs/${id}`, { name, age, height })
+    .then(res => {
+      console.log(res.data);
+      dispatch({
+        type: SMURFS_EDIT,
+        payload: res.data
+      });
+    })
     .catch(err => console.log(err));
 };
 
