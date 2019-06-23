@@ -1,4 +1,3 @@
-// import React, { Component } from "react";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Loader from "react-loader-spinner";
@@ -7,46 +6,39 @@ import { getSmurfs } from "../actions";
 import SmurfContainer from "../components/SmurfContainer";
 import SmurfForm from "./SmurfForm";
 
-function App(props) {
-  // const { getSmurfs } = props;
-  debugger;
-  useEffect(props.getSmurfs, [props]);
+const App = (props) => {
+  const { getSmurfs } = props;
+  
+  useEffect(() => getSmurfs(), [getSmurfs]);
   console.log(props);
 
-  // componentDidMount() {
-  //   this.props.getSmurfs();
-  // }
+  if (props.fetchingSmurfs) {
+    return (
+      <StyledLoader>
+        <Loader type="Rings" color="#96CDFF" height={80} width={80} />
+      </StyledLoader>
+    );
+  }
 
-  // render() {
-  return (
-    <div>
-      {props.fetchingSmurfs && (
-        <StyledLoader>
-          <Loader type="Rings" color="#96CDFF" height={80} width={80} />
-        </StyledLoader>
-      )}
+  if (props.smurfs && !props.error) {
+    return (
+      <>
+        <SmurfForm />
+        <SmurfContainer smurfs={props.smurfs} />
+      </>
+    );
+  }
 
-      {props.smurfs && !props.error && (
-        <>
-          <SmurfForm />
-          <SmurfContainer smurfs={props.smurfs} />
-        </>
-      )}
-
-      {this.props.error && <StyledErr>{props.error}</StyledErr>}
-    </div>
-  );
+  if (this.props.error) {
+    return <StyledErr>{props.error}</StyledErr>
+  }
 }
-// }
 
-function mapStateToProps(state) {
-  debugger;
-  return {
+const mapStateToProps = (state) => ({
     smurfs: state.smurfs,
     error: state.error,
     fetchingSmurfs: state.fetchingSmurfs
-  };
-}
+})
 
 export default connect(
   mapStateToProps,
