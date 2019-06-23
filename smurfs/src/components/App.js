@@ -29,7 +29,7 @@ const App = (props) => {
     );
   }
 
-  if (this.props.error) {
+  if (props.error) {
     return <StyledErr>{props.error}</StyledErr>
   }
 }
