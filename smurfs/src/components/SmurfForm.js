@@ -10,8 +10,6 @@ const SmurfForm = props => {
     height: ""
   });
 
-  console.log(props);
-
   useEffect(() => {
     if(props.editing) {
       setSmurf({
@@ -20,7 +18,7 @@ const SmurfForm = props => {
         height: props.smurf.height
       });
     }  
-  }, [props, props.editing])
+  }, [props])
 
   
 

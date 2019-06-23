@@ -59,6 +59,7 @@ const smurfReducer = (state = initialState, action) => {
     case SMURFS_FAILURE:
       return {
         ...state,
+        fetchingSmurfs: false,
         error: action.payload
       };
     case SMURFS_EDIT_LOAD:

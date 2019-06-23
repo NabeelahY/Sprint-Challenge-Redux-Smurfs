@@ -35,7 +35,7 @@ export const getSmurfs = () => dispatch => {
       console.log(err);
       dispatch({
         type: SMURFS_FAILURE,
-        payload: `ERROR STATUS : ${err}`
+        payload: err.message
       });
     });
 };

@@ -19,15 +19,18 @@ class App extends Component {
         {this.props.fetchingSmurfs && (
           <StyledLoader>
             <Loader type="Rings" color="#96CDFF" height={80} width={80} />
-            {/* <Loader type="TailSpin" color="#96CDFF" height={80} width={80} /> */}
           </StyledLoader>
         )}
 
-        {this.props.smurfs && (
+        {this.props.smurfs && !this.props.error && (
           <>
             <SmurfForm />
             <SmurfContainer smurfs={this.props.smurfs} />
           </>
+        )}
+
+        {this.props.error && (
+          <StyledErr>{this.props.error}</StyledErr>
         )}
       </div>
     );
@@ -50,3 +53,14 @@ const StyledLoader = styled.div`
   left: 50%;
   top: 50%;
 `;
+
+const StyledErr = styled.div `
+  margin: 1rem auto;
+  text-align: center;
+  width: 50%;
+  background-color: salmon;
+  border: 1px red solid;
+  border-radius: 0.5rem;
+  font-size: 2rem;
+  color: red;
+`

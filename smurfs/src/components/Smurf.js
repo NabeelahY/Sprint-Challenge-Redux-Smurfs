@@ -35,7 +35,7 @@ const Smurf = props => {
       />
 
       <Modal isOpen={edit}>
-        <ModalHeader>Modal heading</ModalHeader>
+        <ModalHeader>Edit Smurf</ModalHeader>
         <ModalBody>
           <SmurfForm smurfEdit={smurfEdit} editing={edit} smurf={props.smurf} />
         </ModalBody>
