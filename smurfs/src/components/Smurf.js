@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import { deleteSmurfs } from "../actions";
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import { deleteSmurfs, editSmurf } from "../actions";
+import SmurfForm from "./SmurfForm";
 
 const Smurf = props => {
+  console.log(props);
+  const [edit, smurfEdit] = useState(false);
   const deleteSmurf = id => {
     props.deleteSmurfs(id);
   };
@@ -23,13 +28,35 @@ const Smurf = props => {
         <div>Age: {props.smurf.age} years</div>
         <div>Height: {props.smurf.height}</div>
       </div>
+      <FontAwesomeIcon
+        icon={faEdit}
+        color="#B10F2E"
+        onClick={() => smurfEdit(!edit)}
+      />
+
+      <Modal isOpen={edit}>
+        <ModalHeader>Modal heading</ModalHeader>
+        <ModalBody>
+          <SmurfForm smurfEdit={smurfEdit} editing={edit} smurf={props.smurf} />
+        </ModalBody>
+        <ModalFooter>
+          <Button color="secondary" onClick={() => smurfEdit(!edit)}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
     </StyledSmurf>
   );
 };
 
+const mapStateToProps = state => ({
+  smurfs: state.smurfs,
+  updatingSmurf: state.updatingSmurf
+});
+
 export default connect(
-  null,
-  { deleteSmurfs }
+  mapStateToProps,
+  { deleteSmurfs, editSmurf }
 )(Smurf);
 
 const StyledSmurf = styled.div`
