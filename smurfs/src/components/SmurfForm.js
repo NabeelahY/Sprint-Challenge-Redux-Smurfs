@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { addSmurf } from "../actions";
+import { addSmurf, editSmurf } from "../actions";
 
 const SmurfForm = props => {
   const [smurfData, setSmurf] = useState({
@@ -12,16 +12,26 @@ const SmurfForm = props => {
 
   console.log(props);
 
+  useEffect(() => {
+    if(props.editing) {
+      setSmurf({
+        name: props.smurf.name,
+        age: props.smurf.age,
+        height: props.smurf.height
+      });
+    }  
+  }, [props, props.editing])
+
+  
+
   const addNewSmurf = e => {
     e.preventDefault();
-    setSmurf({
-      name: smurfData.name,
-      age: smurfData.age,
-      height: smurfData.height
-    });
-
-    console.log(smurfData);
-    props.addSmurf(smurfData);
+    if (props.editing) {
+      props.editSmurf(props.smurf.id, smurfData);
+      props.smurfEdit(false)
+    } else {
+      props.addSmurf(smurfData);
+    }
   };
 
   return (
@@ -44,14 +54,21 @@ const SmurfForm = props => {
         value={smurfData.height}
         onChange={e => setSmurf({ ...smurfData, height: e.target.value })}
       />
-      <button type="submit">Add Smurf</button>
+      <button type="submit">
+        {props.editing ? "Edit Smurf" : "Add Smurf"}
+      </button>
     </StyledForm>
   );
 };
 
+const mapStateToProps = state => ({
+  smurfs: state.smurfs,
+  updatingSmurf: state.updatingSmurf
+});
+
 export default connect(
-  null,
-  { addSmurf }
+  mapStateToProps,
+  { addSmurf, editSmurf }
 )(SmurfForm);
 
 const StyledForm = styled.form`
