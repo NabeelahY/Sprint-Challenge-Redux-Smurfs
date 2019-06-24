@@ -1,22 +1,66 @@
-import React, { Component } from 'react';
-import './App.css';
-/*
- to wire this component up you're going to need a few things.
- I'll let you do this part on your own. 
- Just remember, `how do I `connect` my components to redux?`
- `How do I ensure that my component links the state to props?`
- */
+import React, { Component } from "react";
+// import React, { useEffect } from 'react';
+import { connect } from "react-redux";
+import Loader from "react-loader-spinner";
+import styled from "styled-components";
+import { getSmurfs } from "../actions";
+import SmurfContainer from "../components/SmurfContainer";
+import SmurfForm from "./SmurfForm";
+
 class App extends Component {
+  // useEffect(props.getSmurfs, [])
+  componentDidMount() {
+    this.props.getSmurfs();
+  }
+
   render() {
     return (
-      <div className="App">
-        <h1>SMURFS! 2.0 W/ Redux</h1>
-        <div>Welcome to your Redux version of Smurfs!</div>
-        <div>Start inside of your `src/index.js` file!</div>
-        <div>Have fun!</div>
+      <div>
+        {this.props.fetchingSmurfs && (
+          <StyledLoader>
+            <Loader type="Rings" color="#96CDFF" height={80} width={80} />
+          </StyledLoader>
+        )}
+
+        {this.props.smurfs && !this.props.error && (
+          <>
+            <SmurfForm />
+            <SmurfContainer smurfs={this.props.smurfs} />
+          </>
+        )}
+
+        {this.props.error && (
+          <StyledErr>{this.props.error}</StyledErr>
+        )}
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  smurfs: state.smurfs,
+  error: state.error,
+  fetchingSmurfs: state.fetchingSmurfs
+});
+
+export default connect(
+  mapStateToProps,
+  { getSmurfs }
+)(App);
+
+const StyledLoader = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+`;
+
+const StyledErr = styled.div `
+  margin: 1rem auto;
+  text-align: center;
+  width: 50%;
+  background-color: salmon;
+  border: 1px red solid;
+  border-radius: 0.5rem;
+  font-size: 2rem;
+  color: red;
+`
